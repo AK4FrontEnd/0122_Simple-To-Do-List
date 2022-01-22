@@ -35,6 +35,13 @@ body{
         @include block(#4B4B4B, #E4768D);
     }
 }
+.empty{
+    margin-top: 100px;
+    font-size: 24px;
+    font-weight: 800;
+    color: $secondColor;
+    text-align: center;
+}
 .wrap{
     .heading{
         position: relative;
