@@ -34,14 +34,14 @@ body {
   color: #4B4B4B;
 }
 
-#addEventbutton {
+#addToDoButton {
   background-color: #E4768D;
   color: #4B4B4B;
   border: 2px solid #4B4B4B;
   font-weight: 800;
 }
 
-#addEventbutton:hover {
+#addToDoButton:hover {
   background-color: #4B4B4B;
   color: #E4768D;
 }
