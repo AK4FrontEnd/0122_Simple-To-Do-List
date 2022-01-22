@@ -1,0 +1,109 @@
+$ThemeColor: #E4768D;
+$secondColor: #4B4B4B;
+$border: 2px solid #4B4B4B;
+
+@mixin block($bgc, $f-color){
+    background-color: $bgc;
+    color: $f-color;
+}
+
+body{
+    background-color: $ThemeColor;
+}
+.container{
+    max-width: 960px;
+    margin: 100px auto;
+}
+.input-group{
+    .input-group-text{
+        @include block(#4B4B4B, #fff);
+        border: none;
+    }
+    .form-control{
+        background-color: #fff;
+        border: $border;
+        &::placeholder{
+            color: $secondColor;
+        }
+    }
+}
+#addEventbutton{
+    @include block(#E4768D, #4B4B4B);
+    border: $border;
+    font-weight: 800;
+    &:hover{
+        @include block(#4B4B4B, #E4768D);
+    }
+}
+.wrap{
+    .heading{
+        position: relative;
+        .deadline{
+            padding: 10px 20px 7px 20px;
+            @include block(#4B4B4B, #fff);
+            font-weight: 800;
+            &::before{
+                content: '';
+                height: 3px;
+                width: 100%;
+                background-color: $secondColor;
+                position: absolute;
+                bottom: -7px;
+                left: 0;
+            }
+        }
+    }
+    .list-group{
+        .event{
+            margin: 5px 0;
+        }
+        .form-check-input{
+            background-color: $ThemeColor;
+            border: $border;
+            width: 22px;
+            height: 22px;
+            margin-right: 10px;
+            padding: 0;
+            cursor: pointer;
+            &:checked{
+                @include block(#4B4B4B, #fff);
+            }
+            &:checked + .form-check-label{
+                text-decoration: line-through;
+            }
+        }
+        .form-check-label{
+            font-size: 20px;
+            color: $secondColor;
+            font-weight: 600;
+            line-height: 20px;
+            cursor: pointer;
+        }
+        .edit-btn{
+            @include block(#E4768D, #4B4B4B);
+            border: $border;
+            height: 30px;
+            width: 100px;
+            font-size: 12px;
+            border-radius: 3px;
+            font-weight: 900;
+            transition: .3s;
+            &:hover{
+                @include block(#4B4B4B, #E4768D);
+            }
+        }
+    }
+}
+.expire-wrap.wrap{
+    *{
+        opacity: 0.8;
+    }
+    .list-group{
+        .form-check-label{
+            cursor: default;
+        }
+        .edit-btn{
+            display: none;
+        }
+    }
+}

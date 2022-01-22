@@ -1,0 +1,130 @@
+body {
+  background-color: #E4768D;
+}
+
+.container {
+  max-width: 960px;
+  margin: 100px auto;
+}
+
+.input-group .input-group-text {
+  background-color: #4B4B4B;
+  color: #fff;
+  border: none;
+}
+
+.input-group .form-control {
+  background-color: #fff;
+  border: 2px solid #4B4B4B;
+}
+
+.input-group .form-control::-webkit-input-placeholder {
+  color: #4B4B4B;
+}
+
+.input-group .form-control:-ms-input-placeholder {
+  color: #4B4B4B;
+}
+
+.input-group .form-control::-ms-input-placeholder {
+  color: #4B4B4B;
+}
+
+.input-group .form-control::placeholder {
+  color: #4B4B4B;
+}
+
+#addEventbutton {
+  background-color: #E4768D;
+  color: #4B4B4B;
+  border: 2px solid #4B4B4B;
+  font-weight: 800;
+}
+
+#addEventbutton:hover {
+  background-color: #4B4B4B;
+  color: #E4768D;
+}
+
+.wrap .heading {
+  position: relative;
+}
+
+.wrap .heading .deadline {
+  padding: 10px 20px 7px 20px;
+  background-color: #4B4B4B;
+  color: #fff;
+  font-weight: 800;
+}
+
+.wrap .heading .deadline::before {
+  content: '';
+  height: 3px;
+  width: 100%;
+  background-color: #4B4B4B;
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+}
+
+.wrap .list-group .event {
+  margin: 5px 0;
+}
+
+.wrap .list-group .form-check-input {
+  background-color: #E4768D;
+  border: 2px solid #4B4B4B;
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.wrap .list-group .form-check-input:checked {
+  background-color: #4B4B4B;
+  color: #fff;
+}
+
+.wrap .list-group .form-check-input:checked + .form-check-label {
+  text-decoration: line-through;
+}
+
+.wrap .list-group .form-check-label {
+  font-size: 20px;
+  color: #4B4B4B;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.wrap .list-group .edit-btn {
+  background-color: #E4768D;
+  color: #4B4B4B;
+  border: 2px solid #4B4B4B;
+  height: 30px;
+  width: 100px;
+  font-size: 12px;
+  border-radius: 3px;
+  font-weight: 900;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.wrap .list-group .edit-btn:hover {
+  background-color: #4B4B4B;
+  color: #E4768D;
+}
+
+.expire-wrap.wrap * {
+  opacity: 0.8;
+}
+
+.expire-wrap.wrap .list-group .form-check-label {
+  cursor: default;
+}
+
+.expire-wrap.wrap .list-group .edit-btn {
+  display: none;
+}
+/*# sourceMappingURL=style.css.map */
