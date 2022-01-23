@@ -7,6 +7,22 @@ window.onload = function(){
         deadline = document.querySelector('.date-input');
         isDateDataExist(deadline.value);
     })
+
+    // 已完成待辦事項更新樣式
+    document.querySelectorAll('.form-check-input').forEach(item => {
+        item.addEventListener('change', function(){
+            if(this.checked){
+                let btn = this.parentNode.parentNode.querySelector('.edit-btn');
+                btn.innerText = 'REMOVE';
+                btn.setAttribute('class', 'remove-btn')
+            }else{
+                let btn = this.parentNode.parentNode.querySelector('.remove-btn');
+                btn.innerText = 'EDIT';
+                btn.setAttribute('class', 'edit-btn')
+            }
+            updateTodoStatus(item, this.checked);
+        })
+    })
 }
 
 function isDateDataExist(deadlineDate){
@@ -33,7 +49,6 @@ function addToDoGroup(titleStr, deadlineDate){
     }else{
         let obj = {
             "deadline": deadlineDate,
-            "expired": false,
             "list":[
                 {
                     "title": titleStr,
@@ -64,10 +79,10 @@ function getRenderData(){
             }
         }
     }
-    render(dataArray);
+    render(today, dataArray);
 }
 
-function render(dataArray){
+function render(today, dataArray){
     let toDoRow = document.querySelector('.todo-row');
     toDoRow.innerHTML = '';
     if(dataArray.length == 0){
@@ -86,9 +101,43 @@ function render(dataArray){
                 cloneToDoItem.querySelector('.form-check-label').setAttribute('for', `${group.deadline}_${item.title}`);
                 cloneToDoItem.querySelector('.form-check-input').setAttribute('id', `${group.deadline}_${item.title}`);
 
+                // 該待辦事項是否已完成
+                if(item.finished){
+                    cloneToDoItem.querySelector('.form-check-input').setAttribute('checked', '');
+                    cloneToDoItem.querySelector('.edit-btn').innerText = 'REMOVE';
+                    cloneToDoItem.querySelector('.edit-btn').setAttribute('class', 'remove-btn');
+                }
                 toDoListWrap.append(cloneToDoItem);
             })
             toDoRow.append(cloneToDoWrap);
+
+            // 判斷是否已過期
+            let date = new Date(group.deadline);
+            if(date<today){
+                toDoRow.querySelector('.wrap').classList.add('expire-wrap');
+
+                // disable checkbox
+                toDoRow.querySelectorAll('.expire-wrap .form-check-input').forEach(item => {
+                    item.setAttribute('disabled','');
+                })
+            }
         })
     }
+}
+
+function updateTodoStatus(todoItem, isChecked){
+    let itemId = (todoItem.id).split('_');
+    let itemDeadline = itemId[0];
+    let itemTitle = itemId[1];
+
+    let obj = JSON.parse(localStorage.getItem(itemDeadline));
+    let todo = obj.list.find(x => x.title == itemTitle);
+
+    if(isChecked){
+        todo.finished = true;
+    }else{
+        todo.finished = false;
+    }
+
+    localStorage.setItem(itemDeadline, JSON.stringify(obj));
 }

@@ -86,7 +86,7 @@ body{
             line-height: 20px;
             cursor: pointer;
         }
-        .edit-btn{
+        .edit-btn, .remove-btn{
             @include block(#E4768D, #4B4B4B);
             border: $border;
             height: 30px;
