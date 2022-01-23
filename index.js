@@ -7,22 +7,6 @@ window.onload = function(){
         deadline = document.querySelector('.date-input');
         isDateDataExist(deadline.value);
     })
-
-    // 已完成待辦事項更新樣式
-    document.querySelectorAll('.form-check-input').forEach(item => {
-        item.addEventListener('change', function(){
-            if(this.checked){
-                let btn = this.parentNode.parentNode.querySelector('.edit-btn');
-                btn.innerText = 'REMOVE';
-                btn.setAttribute('class', 'remove-btn')
-            }else{
-                let btn = this.parentNode.parentNode.querySelector('.remove-btn');
-                btn.innerText = 'EDIT';
-                btn.setAttribute('class', 'edit-btn')
-            }
-            updateTodoStatus(item, this.checked);
-        })
-    })
 }
 
 function isDateDataExist(deadlineDate){
@@ -34,7 +18,7 @@ function isDateDataExist(deadlineDate){
             title: title.value,
             "finished": false
         }
-        (obj.list).push(item);
+        obj.list.push(item);
         localStorage.setItem(deadlineDate, JSON.stringify(obj));
 
         title.value = '';
@@ -121,16 +105,77 @@ function render(today, dataArray){
                     item.setAttribute('disabled','');
                 })
             }
+
+            // 判斷每一個 group 裡是不是已經沒有待辦事項，若沒有就刪掉這筆資料
+            if(group.list.length == 0){
+                localStorage.removeItem(group.deadline);
+                getRenderData()
+            }
         })
     }
+
+    // 已完成待辦事項更新樣式
+    document.querySelectorAll('.form-check-input').forEach(item => {
+        item.addEventListener('change', function(){
+            if(this.checked){
+                let btn = this.parentNode.parentNode.querySelector('.edit-btn');
+                btn.innerText = 'REMOVE';
+                btn.setAttribute('class', 'remove-btn')
+            }else{
+                let btn = this.parentNode.parentNode.querySelector('.remove-btn');
+                btn.innerText = 'EDIT';
+                btn.setAttribute('class', 'edit-btn')
+            }
+            updateTodoStatus(item, this.checked);
+        })
+    })
+
+    // edit
+    document.querySelectorAll('.edit-btn').forEach(item => {
+        item.addEventListener('click', function(){
+            let todoItem = this.parentNode.querySelector('.form-check-input');
+            let [obj, itemDeadline, itemTitle] = [...getTargetTodoItem(todoItem)];
+            // console.log(obj, itemDeadline, itemTitle);
+
+            document.querySelector('.title-input').value = itemTitle;
+            document.querySelector('.date-input').value = itemDeadline;
+
+            // 編輯完資訊按下按鈕後會在新增成新的待辦事項，所以這邊先在 Local Storage 裡刪掉這筆資料
+            let removeItemIdx = obj.list.findIndex(x => x.title == itemTitle);
+            obj.list.splice(removeItemIdx, 1);
+
+            localStorage.setItem(itemDeadline, JSON.stringify(obj));
+        })
+    })
+
+    // remove
+    document.querySelectorAll('.remove-btn').forEach(item => {
+        item.addEventListener('click', function(){
+            let todoItem = this.parentNode.querySelector('.form-check-input');
+            let [obj, itemDeadline, itemTitle] = [...getTargetTodoItem(todoItem)];
+            // console.log(obj, itemDeadline, itemTitle);
+
+            let removeItemIdx = obj.list.findIndex(x => x.title == itemTitle);
+            obj.list.splice(removeItemIdx, 1);
+
+            localStorage.setItem(itemDeadline, JSON.stringify(obj));
+            getRenderData();
+        })
+    })
+
 }
 
-function updateTodoStatus(todoItem, isChecked){
+function getTargetTodoItem(todoItem){
     let itemId = (todoItem.id).split('_');
     let itemDeadline = itemId[0];
     let itemTitle = itemId[1];
 
     let obj = JSON.parse(localStorage.getItem(itemDeadline));
+    return [obj, itemDeadline, itemTitle];
+}
+
+function updateTodoStatus(todoItem, isChecked){
+    let [obj, itemDeadline, itemTitle] = [...getTargetTodoItem(todoItem)];
     let todo = obj.list.find(x => x.title == itemTitle);
 
     if(isChecked){
@@ -140,4 +185,5 @@ function updateTodoStatus(todoItem, isChecked){
     }
 
     localStorage.setItem(itemDeadline, JSON.stringify(obj));
+    getRenderData();
 }
