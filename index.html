@@ -10,16 +10,16 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <div class="col col-9 flex-grow-1">
-                    <div class="input-group mb-5">
+            <div class="row mb-5">
+                <div class="col flex-grow-1 mb-3">
+                    <div class="input-group">
                         <span class="input-group-text">Title</span>
                         <input type="text" class="form-control title-input" placeholder="ToDo" aria-label="Event" aria-describedby="addToDoButton">
                         <span class="input-group-text">Deadline</span>
                         <input type="date" class="form-control date-input" aria-label="Date" aria-describedby="addToDoButton">
                     </div>
                 </div>
-                <div class="col">
+                <div class="col col-12 col-md-2">
                     <button class="d-block btn ms-auto" type="button" id="addToDoButton">Add ToDo</button>
                 </div>
             </div>
@@ -43,7 +43,7 @@
         <!-- To Do Item Template-->
         <template id="todo-item">
             <div class="event d-flex justify-content-between align-items-center">
-                <div class="form-check d-flex align-items-end">
+                <div class="form-check d-flex align-items-center flex-shrink-1">
                     <input class="form-check-input" type="checkbox" value="" id="ckeck-1">
                     <label class="form-check-label" for="ckeck-1">Default checkbox</label>
                 </div>

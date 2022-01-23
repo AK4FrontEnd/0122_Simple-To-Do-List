@@ -77,9 +77,12 @@ body {
 
 .wrap .list-group .event {
   margin: 5px 0;
+  width: 100%;
 }
 
 .wrap .list-group .form-check-input {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   background-color: #E4768D;
   border: 2px solid #4B4B4B;
   width: 22px;
@@ -107,6 +110,8 @@ body {
 }
 
 .wrap .list-group .edit-btn, .wrap .list-group .remove-btn {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   background-color: #E4768D;
   color: #4B4B4B;
   border: 2px solid #4B4B4B;
@@ -134,5 +139,24 @@ body {
 
 .expire-wrap.wrap .list-group .edit-btn {
   display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .row:nth-of-type(1) {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .row:nth-of-type(1) .col button {
+    margin: 0 auto;
+  }
+  .input-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
 }
 /*# sourceMappingURL=style.css.map */
